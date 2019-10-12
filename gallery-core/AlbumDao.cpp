@@ -6,6 +6,8 @@
 #include <Album.h>
 #include "Databasemanager.h"
 
+typedef std::unique_ptr<std::vector<std::unique_ptr<Album>>> unique_ptr_vector;
+
 AlbumDao::AlbumDao(QSqlDatabase& database) : mDatabase(database)
 {
 
@@ -44,15 +46,16 @@ void AlbumDao::removeAlbum(int id) const{
     DatabaseManager::debugQuery(query);
 }
 
-QVector<Album*> AlbumDao::albums() const{
+unique_ptr_vector AlbumDao::albums() const{
     QSqlQuery query("SELECT * FROM albums", mDatabase);
     query.exec();
-    QVector<Album*> list;
+    DatabaseManager::debugQuery(query);
+    unique_ptr_vector list;
     while(query.next()){
-        Album* album = new Album;
+        std::unique_ptr<Album> album;
         album->setId(query.value("id").toInt());
         album->setName(query.value("name").toString());
-        list.append(album);
+        list->push_back(std::move(album));
     }
     return list;
 }

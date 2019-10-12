@@ -1,8 +1,10 @@
 #ifndef DATABAEMANAGER_H
 #define DATABAEMANAGER_H
 
+#include <memory>
 #include <QString>
 #include "AlbumDao.h"
+#include "PictureDao.h"
 
 class QSqlDatabase;
 class QSqlQuery;
@@ -21,10 +23,11 @@ protected:
     DatabaseManager& operator=(const DatabaseManager& rhs);
 
 private:
-    QSqlDatabase *mDatabase;
+    std::unique_ptr<QSqlDatabase> mDatabase;
 
 public:
     const AlbumDao albumDao;
+    const PictureDao pictureDao;
 };
 
 #endif // DATABAEMANAGER_H

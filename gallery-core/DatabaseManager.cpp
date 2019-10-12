@@ -1,4 +1,4 @@
-#include "DatabaseManager.h"
+#include "Databasemanager.h"
 
 #include <QSqlDatabase>
 #include <QSqlQuery>
@@ -21,16 +21,16 @@ DatabaseManager& DatabaseManager::instance(){
 }
 
 DatabaseManager::DatabaseManager(const QString& path) : mDatabase(new QSqlDatabase(QSqlDatabase::addDatabase("QSQLITE"))),
-                                                        albumDao(*mDatabase)
+                                                        albumDao(*mDatabase), pictureDao(*mDatabase)
 {
     mDatabase->setDatabaseName(path);
     mDatabase->open();
 
     albumDao.init();
+    pictureDao.init();
 }
 
 DatabaseManager::~DatabaseManager(){
     mDatabase->close();
-    delete mDatabase;
 }
 
