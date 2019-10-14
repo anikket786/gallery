@@ -34,3 +34,27 @@ QHash<int, QByteArray> AlbumModel::roleNames() const{
     roles[Roles::NameRole] = "name";
     return roles;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
