@@ -9,6 +9,7 @@ AlbumModel::AlbumModel(QObject* parent) : QAbstractListModel(parent),
 }
 
 int AlbumModel::rowCount(const QModelIndex &parent) const{
+    Q_UNUSED(parent)
     return static_cast<int>(mAlbums->size());
 }
 
@@ -77,7 +78,9 @@ bool AlbumModel::removeRows(int row, int count, const QModelIndex &parent){
     return true;
 }
 
-
+bool AlbumModel::isIndexValid(const QModelIndex &index) const{
+    return index.isValid() && index.row() < rowCount();
+}
 
 
 
