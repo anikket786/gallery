@@ -2,19 +2,27 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+TARGET = gallery-desktop
+TEMPLATE = app
 CONFIG += c++11
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
+    AlbumlistWidget.cpp \
     main.cpp \
     MainWindow.cpp
 
 HEADERS += \
+    AlbumListwidget.h \
     MainWindow.h
 
 FORMS += \
+    AlbumListWidget.ui \
     MainWindow.ui
+
+RESOURCES += \
+    res/resource.qrc
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -27,3 +35,5 @@ else:unix: LIBS += -L$$OUT_PWD/../gallery-core/ -lgallery-core
 
 INCLUDEPATH += $$PWD/../gallery-core
 DEPENDPATH += $$PWD/../gallery-core
+
+RESOURCES +=

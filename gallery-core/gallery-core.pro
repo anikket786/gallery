@@ -10,6 +10,7 @@ QT       -= gui
 
 TARGET = gallery-core
 TEMPLATE = lib
+CONFIG += lib c++11
 
 DEFINES += GALLERYCORE_LIBRARY
 
