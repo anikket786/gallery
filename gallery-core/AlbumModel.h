@@ -17,7 +17,7 @@ public:
 
     enum Roles {
         IdRole = Qt::UserRole+1,
-        NameRole,
+        NameRole
     };
 
     AlbumModel(QObject* parent = nullptr);

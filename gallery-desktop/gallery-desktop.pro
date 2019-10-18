@@ -9,16 +9,21 @@ CONFIG += c++11
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
+    AlbumWidget.cpp \
     AlbumlistWidget.cpp \
+    ThumbnailProxyModel.cpp \
     main.cpp \
     MainWindow.cpp
 
 HEADERS += \
     AlbumListwidget.h \
-    MainWindow.h
+    AlbumWidget.h \
+    MainWindow.h \
+    ThumbnailProxyModel.h
 
 FORMS += \
     AlbumListWidget.ui \
+    AlbumWidget.ui \
     MainWindow.ui
 
 RESOURCES += \
