@@ -24,7 +24,7 @@ public:
     void setAlbumModel(AlbumModel *albumModel);
     void setAlbumselectionmodel(QItemSelectionModel* albumSelectionModel);
     void setPictureModel(ThumbnailProxyModel *pictureModel);
-    void setPictureSelectionModel(QItemSelectionModel *pictureSelectionModel);
+    void setPictureSelectionModel(QItemSelectionModel *selectionModel);
 
 signals:
     void pictureActivated(const QModelIndex &index);
