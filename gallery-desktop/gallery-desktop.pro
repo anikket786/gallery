@@ -11,6 +11,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     AlbumWidget.cpp \
     AlbumlistWidget.cpp \
+    GalleryWidget.cpp \
     PictureDelegate.cpp \
     PictureWidget.cpp \
     ThumbnailProxyModel.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
 HEADERS += \
     AlbumListwidget.h \
     AlbumWidget.h \
+    GalleryWidget.h \
     MainWindow.h \
     PictureDelegate.h \
     PictureWidget.h \
@@ -28,16 +30,12 @@ HEADERS += \
 FORMS += \
     AlbumListWidget.ui \
     AlbumWidget.ui \
+    GalleryWidget.ui \
     MainWindow.ui \
     PictureWidget.ui
 
 RESOURCES += \
     res/resource.qrc
-
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../gallery-core/release/ -lgallery-core
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../gallery-core/debug/ -lgallery-core
@@ -46,4 +44,10 @@ else:unix: LIBS += -L$$OUT_PWD/../gallery-core/ -lgallery-core
 INCLUDEPATH += $$PWD/../gallery-core
 DEPENDPATH += $$PWD/../gallery-core
 
-RESOURCES +=
+RESOURCES += \
+    res/resource.qrc
+
+# Default rules for deployment.
+#qnx: target.path = /tmp/$${TARGET}/bin
+#else: unix:!android: target.path = /opt/$${TARGET}/bin
+#!isEmpty(target.path): INSTALLS += target

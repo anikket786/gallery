@@ -5,7 +5,6 @@
 #-------------------------------------------------
 
 QT       += sql
-
 QT       -= gui
 
 TARGET = gallery-core
@@ -14,23 +13,21 @@ CONFIG += lib c++11
 
 DEFINES += GALLERYCORE_LIBRARY
 
-DEFINES += QT_DEPRECATED_WARNINGS
-
 SOURCES += \
-        Album.cpp \
-        AlbumDao.cpp \
-        AlbumModel.cpp \
-        DatabaseManager.cpp \
-        Picture.cpp \
-        PictureDao.cpp \
-        PictureModel.cpp
+    AlbumModel.cpp \
+    DatabaseManager.cpp \
+    Album.cpp \
+    Picture.cpp \
+    PictureModel.cpp \
+    AlbumDao.cpp \
+    PictureDao.cpp
 
 HEADERS += \
-        Album.h \
-        AlbumDao.h \
-        AlbumModel.h \
-        DatabaseManager.h \
-        Picture.h \
-        PictureDao.h \
-        PictureModel.h \
-        gallery-core_global.h 
+    gallery-core_global.h \
+    AlbumModel.h \
+    DatabaseManager.h \
+    Album.h \
+    Picture.h \
+    PictureModel.h \
+    AlbumDao.h \
+    PictureDao.h

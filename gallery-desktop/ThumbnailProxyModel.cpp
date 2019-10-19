@@ -37,7 +37,7 @@ void ThumbnailProxyModel::setSourceModel(QAbstractItemModel *sourceModel){
         return;
     }
     connect(sourceModel, &QAbstractItemModel::modelReset, [this]{ reloadThumbnails(); });
-    connect(sourceModel, &QAbstractItemModel::rowsInserted, [this](QModelIndex &parent, int first, int last)
+    connect(sourceModel, &QAbstractItemModel::rowsInserted, [this](QModelIndex /*&parent*/, int first, int last)
                                                                  { generateThumbnails(index(first, 0), last-first+1);});
 }
 

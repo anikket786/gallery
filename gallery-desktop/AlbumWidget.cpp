@@ -43,7 +43,7 @@ void AlbumWidget::setAlbumModel(AlbumModel *albumModel){
                                                                   loadAlbum(topLeft); });
 }
 
-void AlbumWidget::setAlbumselectionmodel(QItemSelectionModel *albumSelectionModel){
+void AlbumWidget::setAlbumselectionModel(QItemSelectionModel *albumSelectionModel){
     mAlbumSelectionModel = albumSelectionModel;
     connect(mAlbumSelectionModel, &QItemSelectionModel::selectionChanged, [this](const QItemSelection &selected)
                                                                           { if(selected.isEmpty())

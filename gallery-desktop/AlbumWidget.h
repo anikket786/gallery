@@ -22,7 +22,7 @@ public:
     ~AlbumWidget();
 
     void setAlbumModel(AlbumModel *albumModel);
-    void setAlbumselectionmodel(QItemSelectionModel* albumSelectionModel);
+    void setAlbumselectionModel(QItemSelectionModel* albumSelectionModel);
     void setPictureModel(ThumbnailProxyModel *pictureModel);
     void setPictureSelectionModel(QItemSelectionModel *selectionModel);
 

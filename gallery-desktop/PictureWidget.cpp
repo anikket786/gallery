@@ -92,7 +92,11 @@ void PictureWidget::updatePicturePixmap()
     ui->pictureLabel->setPixmap(mPixmap.scaled(ui->pictureLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
 
-
+void PictureWidget::resizeEvent(QResizeEvent* event)
+{
+    QWidget::resizeEvent(event);
+    updatePicturePixmap();
+}
 
 
 
