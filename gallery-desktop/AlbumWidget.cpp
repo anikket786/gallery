@@ -3,6 +3,7 @@
 #include "PictureModel.h"
 #include "AlbumModel.h"
 #include "ThumbnailProxyModel.h"
+#include "PictureDelegate.h"
 
 #include <QItemSelectionModel>
 #include <QInputDialog>
@@ -22,6 +23,7 @@ AlbumWidget::AlbumWidget(QWidget *parent) :
     ui->thumbnailListView->setResizeMode(QListView::Adjust);
     ui->thumbnailListView->setFlow(QListView::LeftToRight);
     ui->thumbnailListView->setWrapping(true);
+    ui->thumbnailListView->setItemDelegate(new PictureDelegate(this));
 
     connect(ui->thumbnailListView, &QListView::doubleClicked, this, &AlbumWidget::pictureActivated);
     connect(ui->deleteButton, &QPushButton::clicked, this, &AlbumWidget::deleteAlbum);

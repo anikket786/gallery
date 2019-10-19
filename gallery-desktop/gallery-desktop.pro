@@ -11,6 +11,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     AlbumWidget.cpp \
     AlbumlistWidget.cpp \
+    PictureDelegate.cpp \
+    PictureWidget.cpp \
     ThumbnailProxyModel.cpp \
     main.cpp \
     MainWindow.cpp
@@ -19,12 +21,15 @@ HEADERS += \
     AlbumListwidget.h \
     AlbumWidget.h \
     MainWindow.h \
+    PictureDelegate.h \
+    PictureWidget.h \
     ThumbnailProxyModel.h
 
 FORMS += \
     AlbumListWidget.ui \
     AlbumWidget.ui \
-    MainWindow.ui
+    MainWindow.ui \
+    PictureWidget.ui
 
 RESOURCES += \
     res/resource.qrc

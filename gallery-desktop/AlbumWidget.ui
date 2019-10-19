@@ -30,7 +30,7 @@
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QLabel" name="albuName">
+       <widget class="QLabel" name="albumName">
         <property name="minimumSize">
          <size>
           <width>100</width>
