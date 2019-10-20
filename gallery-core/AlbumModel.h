@@ -8,7 +8,7 @@
 
 #include "gallery-core_global.h"
 #include "Album.h"
-#include "Databasemanager.h"
+#include "DatabaseManager.h"
 
 class GALLERYCORESHARED_EXPORT AlbumModel : public QAbstractListModel
 {
@@ -16,11 +16,12 @@ class GALLERYCORESHARED_EXPORT AlbumModel : public QAbstractListModel
 public:
 
     enum Roles {
-        IdRole = Qt::UserRole+1,
-        NameRole
+        IdRole = Qt::UserRole + 1,
+        NameRole,
     };
 
     AlbumModel(QObject* parent = nullptr);
+
     QModelIndex addAlbum(const Album& album);
 
     int rowCount(const QModelIndex& parent = QModelIndex()) const override;

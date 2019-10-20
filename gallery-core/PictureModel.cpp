@@ -1,44 +1,34 @@
-#include <memory>
-#include <vector>
-
-#include "Databasemanager.h"
 #include "PictureModel.h"
+
+#include "Album.h"
+#include "DatabaseManager.h"
 #include "AlbumModel.h"
 
-PictureModel::PictureModel(const AlbumModel& albumModel, QObject* parent) : mDb(DatabaseManager::instance()),
-                                                                            mAlbumId(-1),
-                                                                            mPictures(new std::vector<std::unique_ptr<Picture>>())
+using namespace std;
+
+PictureModel::PictureModel(const AlbumModel& albumModel, QObject* parent) :
+    QAbstractListModel(parent),
+    mDb(DatabaseManager::instance()),
+    mAlbumId(-1),
+    mPictures(new vector<unique_ptr<Picture>>())
 {
-    connect(&albumModel, &AlbumModel::rowsRemoved, this, &PictureModel::deletePicturesForAlbum);
+    connect(&albumModel, &AlbumModel::rowsRemoved,
+            this, &PictureModel::deletePicturesForAlbum);
 }
 
-void PictureModel::setAlbumId(int albumId){
-    beginResetModel();
-    mAlbumId = albumId;
-    loadPictures(mAlbumId);
-    endResetModel();
-}
-
-void PictureModel::loadPictures(int albumId){
-    if(albumId<=0){
-        mPictures.reset(new std::vector<std::unique_ptr<Picture>>());
-        return;
-    }
-    mPictures = mDb.pictureDao.picturesForAlbum(albumId);
-}
-
-QModelIndex PictureModel::addPicture(const Picture &picture){
+QModelIndex PictureModel::addPicture(const Picture& picture)
+{
     int rows = rowCount();
     beginInsertRows(QModelIndex(), rows, rows);
-    std::unique_ptr<Picture> newPicture(new Picture(picture));
+    unique_ptr<Picture>newPicture(new Picture(picture));
     mDb.pictureDao.addPictureInAlbum(mAlbumId, *newPicture);
-    mPictures->push_back(std::move(newPicture));
+    mPictures->push_back(move(newPicture));
     endInsertRows();
     return index(rows, 0);
 }
 
-int PictureModel::rowCount(const QModelIndex &parent) const{
-    Q_UNUSED(parent)
+int PictureModel::rowCount(const QModelIndex& /*parent*/) const
+{
     return mPictures->size();
 }
 
@@ -52,12 +42,15 @@ QVariant PictureModel::data(const QModelIndex& index, int role) const
     switch (role) {
         case Qt::DisplayRole:
             return picture.fileUrl().fileName();
+            break;
 
         case Roles::UrlRole:
             return picture.fileUrl();
+            break;
 
         case Roles::FilePathRole:
             return picture.fileUrl().toLocalFile();
+            break;
 
 
         default:
@@ -97,6 +90,14 @@ QHash<int, QByteArray> PictureModel::roleNames() const
     return roles;
 }
 
+void PictureModel::setAlbumId(int albumId)
+{
+    beginResetModel();
+    mAlbumId = albumId;
+    loadPictures(mAlbumId);
+    endResetModel();
+}
+
 void PictureModel::clearAlbum()
 {
     setAlbumId(-1);
@@ -104,8 +105,17 @@ void PictureModel::clearAlbum()
 
 void PictureModel::deletePicturesForAlbum()
 {
-    mDb.pictureDao.picturesForAlbum(mAlbumId);
+    mDb.pictureDao.removePicturesForAlbum(mAlbumId);
     clearAlbum();
+}
+
+void PictureModel::loadPictures(int albumId)
+{
+    if (albumId <= 0) {
+        mPictures.reset(new vector<unique_ptr<Picture>>());
+        return;
+    }
+    mPictures = mDb.pictureDao.picturesForAlbum(albumId);
 }
 
 bool PictureModel::isIndexValid(const QModelIndex& index) const
@@ -117,24 +127,3 @@ bool PictureModel::isIndexValid(const QModelIndex& index) const
     }
     return true;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

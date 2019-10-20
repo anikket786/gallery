@@ -1,8 +1,8 @@
 #include "PictureWidget.h"
 #include "ui_PictureWidget.h"
 
-#include "ThumbnailProxyModel.h"
 #include "PictureModel.h"
+#include "ThumbnailProxyModel.h"
 
 PictureWidget::PictureWidget(QWidget *parent) :
     QWidget(parent),
@@ -13,19 +13,22 @@ PictureWidget::PictureWidget(QWidget *parent) :
     ui->setupUi(this);
     ui->pictureLabel->setMinimumSize(1, 1);
 
-    connect(ui->backButton, &QPushButton::clicked, this, &PictureWidget::backToGallery);
-    connect(ui->deleteButton, &QPushButton::clicked, this, &PictureWidget::deletePicture);
+    connect(ui->backButton, &QPushButton::clicked,
+        this, &PictureWidget::backToGallery);
 
-    connect(ui->previousButton, &QPushButton::clicked, [this](){
+    connect(ui->deleteButton, &QPushButton::clicked,
+            this, &PictureWidget::deletePicture);
+
+    connect(ui->previousButton, &QPushButton::clicked, [this] () {
         QModelIndex currentModelIndex = mSelectionModel->currentIndex();
-        QModelIndex previousModelIndex = mSelectionModel->model()->index(currentModelIndex.row()-1, 0);
+        QModelIndex previousModelIndex = mSelectionModel->model()->index(currentModelIndex.row() - 1, 0);
         mSelectionModel->setCurrentIndex(previousModelIndex, QItemSelectionModel::SelectCurrent);
     });
 
-    connect(ui->nextButton, &QPushButton::clicked, [this](){
-       QModelIndex currentModelIndex = mSelectionModel->currentIndex();
-       QModelIndex nextModelIndex = mSelectionModel->model()->index(currentModelIndex.row(), 0);
-       mSelectionModel->setCurrentIndex(nextModelIndex, QItemSelectionModel::SelectCurrent);
+    connect(ui->nextButton, &QPushButton::clicked, [this] () {
+        QModelIndex currentModelIndex = mSelectionModel->currentIndex();
+        QModelIndex nextModelIndex = mSelectionModel->model()->index(currentModelIndex.row() + 1, 0);
+        mSelectionModel->setCurrentIndex(nextModelIndex, QItemSelectionModel::SelectCurrent);
     });
 }
 
@@ -34,33 +37,46 @@ PictureWidget::~PictureWidget()
     delete ui;
 }
 
-void PictureWidget::setModel(ThumbnailProxyModel *model){
+void PictureWidget::setModel(ThumbnailProxyModel* model)
+{
     mModel = model;
 }
 
-void PictureWidget::setselectionModel(QItemSelectionModel *selectionModel){
+void PictureWidget::setSelectionModel(QItemSelectionModel* selectionModel)
+{
     mSelectionModel = selectionModel;
-    if(!mSelectionModel){
+    if (!mSelectionModel) {
         return;
     }
     connect(mSelectionModel, &QItemSelectionModel::selectionChanged, this, &PictureWidget::loadPicture);
 }
 
-void PictureWidget::deletePicture(){
-    int row = mSelectionModel->currentIndex().row();
-    mModel->removeRow(row);
+void PictureWidget::resizeEvent(QResizeEvent* event)
+{
+    QWidget::resizeEvent(event);
+    updatePicturePixmap();
+}
 
-    QModelIndex previousModelIndex = mModel->index(row-1, 0);
-    if(previousModelIndex.isValid()){
+void PictureWidget::deletePicture()
+{
+    // Remove the current picture
+    int row = mSelectionModel->currentIndex().row();
+    mModel->removeRow(mSelectionModel->currentIndex().row());
+
+    // Try to select the previous picture
+    QModelIndex previousModelIndex = mModel->index(row - 1, 0);
+    if(previousModelIndex.isValid()) {
         mSelectionModel->setCurrentIndex(previousModelIndex, QItemSelectionModel::SelectCurrent);
         return;
     }
 
+    // Try to select the next picture
     QModelIndex nextModelIndex = mModel->index(row, 0);
-    if(nextModelIndex.isValid()){
+    if(nextModelIndex.isValid()) {
         mSelectionModel->setCurrentIndex(nextModelIndex, QItemSelectionModel::SelectCurrent);
         return;
     }
+
     emit backToGallery();
 }
 
@@ -91,33 +107,3 @@ void PictureWidget::updatePicturePixmap()
     }
     ui->pictureLabel->setPixmap(mPixmap.scaled(ui->pictureLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
 }
-
-void PictureWidget::resizeEvent(QResizeEvent* event)
-{
-    QWidget::resizeEvent(event);
-    updatePicturePixmap();
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

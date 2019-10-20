@@ -1,41 +1,36 @@
-QT       += core gui
+#-------------------------------------------------
+#
+# Project created by QtCreator 2016-04-16T15:09:10
+#
+#-------------------------------------------------
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT       += core gui widgets
 
 TARGET = gallery-desktop
 TEMPLATE = app
-CONFIG += c++11
 
-DEFINES += QT_DEPRECATED_WARNINGS
-
-SOURCES += \
+SOURCES += main.cpp\
+        MainWindow.cpp \
+    AlbumListWidget.cpp \
     AlbumWidget.cpp \
-    AlbumlistWidget.cpp \
-    GalleryWidget.cpp \
     PictureDelegate.cpp \
     PictureWidget.cpp \
-    ThumbnailProxyModel.cpp \
-    main.cpp \
-    MainWindow.cpp
+    GalleryWidget.cpp \
+    ThumbnailProxyModel.cpp
 
-HEADERS += \
-    AlbumListwidget.h \
+HEADERS  += MainWindow.h \
+    AlbumListWidget.h \
     AlbumWidget.h \
-    GalleryWidget.h \
-    MainWindow.h \
     PictureDelegate.h \
     PictureWidget.h \
+    GalleryWidget.h \
     ThumbnailProxyModel.h
 
-FORMS += \
+FORMS    += MainWindow.ui \
     AlbumListWidget.ui \
     AlbumWidget.ui \
-    GalleryWidget.ui \
-    MainWindow.ui \
-    PictureWidget.ui
-
-RESOURCES += \
-    res/resource.qrc
+    PictureWidget.ui \
+    GalleryWidget.ui
 
 win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../gallery-core/release/ -lgallery-core
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../gallery-core/debug/ -lgallery-core
@@ -46,8 +41,3 @@ DEPENDPATH += $$PWD/../gallery-core
 
 RESOURCES += \
     res/resource.qrc
-
-# Default rules for deployment.
-#qnx: target.path = /tmp/$${TARGET}/bin
-#else: unix:!android: target.path = /opt/$${TARGET}/bin
-#!isEmpty(target.path): INSTALLS += target

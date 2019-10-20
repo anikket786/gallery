@@ -18,15 +18,15 @@ public:
     explicit AlbumListWidget(QWidget *parent = nullptr);
     ~AlbumListWidget();
 
-    void setModel(AlbumModel *model);
-    void setSelectionModel(QItemSelectionModel *selectionModel);
+    void setModel(AlbumModel* model);
+    void setSelectionModel(QItemSelectionModel* selectionModel);
 
 private slots:
     void createAlbum();
 
 private:
-    Ui::AlbumListWidget *ui;
-    AlbumModel *mAlbumModel;
+    Ui::AlbumListWidget* ui;
+    AlbumModel* mAlbumModel;
 };
 
 #endif // ALBUMLISTWIDGET_H

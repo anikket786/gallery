@@ -4,14 +4,14 @@
 #include <QWidget>
 #include <QModelIndex>
 
+namespace Ui {
+class AlbumWidget;
+}
+
 class AlbumModel;
 class PictureModel;
 class QItemSelectionModel;
 class ThumbnailProxyModel;
-
-namespace Ui {
-class AlbumWidget;
-}
 
 class AlbumWidget : public QWidget
 {
@@ -21,13 +21,13 @@ public:
     explicit AlbumWidget(QWidget *parent = nullptr);
     ~AlbumWidget();
 
-    void setAlbumModel(AlbumModel *albumModel);
-    void setAlbumselectionModel(QItemSelectionModel* albumSelectionModel);
-    void setPictureModel(ThumbnailProxyModel *pictureModel);
-    void setPictureSelectionModel(QItemSelectionModel *selectionModel);
+    void setAlbumModel(AlbumModel* albumModel);
+    void setAlbumSelectionModel(QItemSelectionModel* albumSelectionModel);
+    void setPictureModel(ThumbnailProxyModel* pictureModel);
+    void setPictureSelectionModel(QItemSelectionModel* selectionModel);
 
 signals:
-    void pictureActivated(const QModelIndex &index);
+    void pictureActivated(const QModelIndex& index);
 
 private slots:
     void deleteAlbum();
@@ -36,14 +36,15 @@ private slots:
 
 private:
     void clearUi();
-    void loadAlbum(const QModelIndex &albumIndex);
+    void loadAlbum(const QModelIndex& albumIndex);
 
 private:
-    Ui::AlbumWidget *ui;
-    AlbumModel *mAlbumModel;
-    QItemSelectionModel *mAlbumSelectionModel;
-    ThumbnailProxyModel *mPictureModel;
-    QItemSelectionModel *mPictureSelectionModel;
+    Ui::AlbumWidget* ui;
+    AlbumModel* mAlbumModel;
+    QItemSelectionModel* mAlbumSelectionModel;
+
+    ThumbnailProxyModel* mPictureModel;
+    QItemSelectionModel* mPictureSelectionModel;
 };
 
 #endif // ALBUMWIDGET_H

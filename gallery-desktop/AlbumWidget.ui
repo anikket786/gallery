@@ -6,19 +6,25 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>378</width>
-    <height>289</height>
+    <width>673</width>
+    <height>269</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
+  <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <widget class="QFrame" name="albumInfoFrame">
      <property name="minimumSize">
       <size>
        <width>0</width>
+       <height>40</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
        <height>40</height>
       </size>
      </property>
@@ -28,30 +34,52 @@
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="topMargin">
+       <number>4</number>
+      </property>
+      <property name="bottomMargin">
+       <number>4</number>
+      </property>
       <item>
        <widget class="QLabel" name="albumName">
         <property name="minimumSize">
          <size>
-          <width>100</width>
+          <width>0</width>
           <height>0</height>
          </size>
         </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>14</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
         <property name="text">
-         <string>Lorem Ipsum</string>
+         <string>Lorem ipsum</string>
         </property>
-        <property name="wordWrap">
-         <bool>false</bool>
-        </property>
-        <property name="margin">
-         <number>5</number>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="addPicturesButton">
+        <property name="maximumSize">
+         <size>
+          <width>130</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
-         <string>Add Pictures</string>
+         <string> Add pictures</string>
         </property>
         <property name="icon">
          <iconset resource="res/resource.qrc">
@@ -61,8 +89,14 @@
       </item>
       <item>
        <widget class="QPushButton" name="editButton">
+        <property name="maximumSize">
+         <size>
+          <width>130</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
-         <string>Edit</string>
+         <string> Edit</string>
         </property>
         <property name="icon">
          <iconset resource="res/resource.qrc">
@@ -72,8 +106,17 @@
       </item>
       <item>
        <widget class="QPushButton" name="deleteButton">
+        <property name="maximumSize">
+         <size>
+          <width>130</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
         <property name="text">
-         <string>Delete</string>
+         <string> Delete</string>
         </property>
         <property name="icon">
          <iconset resource="res/resource.qrc">

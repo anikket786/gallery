@@ -4,9 +4,9 @@
 #include <QMainWindow>
 #include <QStackedWidget>
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
-QT_END_NAMESPACE
+namespace Ui {
+class MainWindow;
+}
 
 class GalleryWidget;
 class PictureWidget;
@@ -21,12 +21,13 @@ public:
 
 public slots:
     void displayGallery();
-    void displayPicture(const QModelIndex &index);
+    void displayPicture(const QModelIndex& index);
 
 private:
     Ui::MainWindow *ui;
-    GalleryWidget *mGalleryWidget;
-    PictureWidget *mPictureWidget;
-    QStackedWidget *mStackWidget;
+    GalleryWidget* mGalleryWidget;
+    PictureWidget* mPictureWidget;
+    QStackedWidget* mStackedWidget;
 };
+
 #endif // MAINWINDOW_H

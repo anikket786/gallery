@@ -1,34 +1,40 @@
+#include "PictureDao.h"
 
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QVariant>
-#include <QString>
 
-#include "PictureDao.h"
-#include "Databasemanager.h"
 #include "Picture.h"
+#include "DatabaseManager.h"
 
-typedef std::unique_ptr<std::vector<std::unique_ptr<Picture>>> unique_ptr_vector;
+using namespace std;
 
-PictureDao::PictureDao(QSqlDatabase& database) : mDatabase(database)
+PictureDao::PictureDao(QSqlDatabase& database) :
+    mDatabase(database)
 {
-
 }
 
-void PictureDao::init() const {
-    if(!mDatabase.tables().contains("pictures")){
+void PictureDao::init() const
+{
+    if (!mDatabase.tables().contains("pictures")) {
         QSqlQuery query(mDatabase);
         query.exec(QString("CREATE TABLE pictures")
-                   +"(id INTEGER PRIMARY KEY AUTOINCREMENT"
-                   +"album_id INTEGER"
-                   +"url TEXT");
+        + " (id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        + "album_id INTEGER, "
+        + "url TEXT)");
         DatabaseManager::debugQuery(query);
     }
 }
 
-void PictureDao::addPictureInAlbum(int albumId, Picture &picture) const{
+void PictureDao::addPictureInAlbum(int albumId, Picture& picture) const
+{
     QSqlQuery query(mDatabase);
-    query.prepare("INSERT INTO pictures (album_id, url) VALUES (:album_id, :url)");
+    query.prepare(QString("INSERT INTO pictures")
+        + " (album_id, url)"
+        + " VALUES ("
+        + ":album_id, "
+        + ":url"
+        + ")");
     query.bindValue(":album_id", albumId);
     query.bindValue(":url", picture.fileUrl());
     query.exec();
@@ -37,7 +43,8 @@ void PictureDao::addPictureInAlbum(int albumId, Picture &picture) const{
     picture.setAlbumId(albumId);
 }
 
-void PictureDao::removePicture(int id) const{
+void PictureDao::removePicture(int id) const
+{
     QSqlQuery query(mDatabase);
     query.prepare("DELETE FROM pictures WHERE id = (:id)");
     query.bindValue(":id", id);
@@ -45,53 +52,29 @@ void PictureDao::removePicture(int id) const{
     DatabaseManager::debugQuery(query);
 }
 
-void PictureDao::removePictureForAlbum(int albumId) const{
+void PictureDao::removePicturesForAlbum(int albumId) const
+{
     QSqlQuery query(mDatabase);
-    query.prepare("DELETE FROM pictures WHERE id = (:id)");
-    query.bindValue(":id", albumId);
-    query.exec();
-    DatabaseManager::debugQuery(query);
-}
-
-unique_ptr_vector PictureDao::picturesForAlbum(int albumId) const{
-    QSqlQuery query(mDatabase);
-    query.prepare("SELECT FROM pictures WHERE album_id = (:album_id)");
+    query.prepare("DELETE FROM pictures WHERE album_id = (:album_id)");
     query.bindValue(":album_id", albumId);
     query.exec();
     DatabaseManager::debugQuery(query);
-    unique_ptr_vector list;
-    while(query.next()){
-        std::unique_ptr<Picture> picture(new Picture());
+}
+
+unique_ptr<vector<unique_ptr<Picture>>> PictureDao::picturesForAlbum(int albumId) const
+{
+    QSqlQuery query(mDatabase);
+    query.prepare("SELECT * FROM pictures WHERE album_id = (:album_id)");
+    query.bindValue(":album_id", albumId);
+    query.exec();
+    DatabaseManager::debugQuery(query);
+    unique_ptr<vector<unique_ptr<Picture>>> list(new vector<unique_ptr<Picture>>());
+    while(query.next()) {
+        unique_ptr<Picture> picture(new Picture());
         picture->setId(query.value("id").toInt());
         picture->setAlbumId(query.value("album_id").toInt());
         picture->setFileUrl(query.value("url").toString());
-        list->push_back(std::move(picture));
+        list->push_back(move(picture));
     }
     return list;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

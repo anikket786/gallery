@@ -1,8 +1,9 @@
-#include "AlbumListwidget.h"
+#include "AlbumListWidget.h"
 #include "ui_AlbumListWidget.h"
-#include "AlbumModel.h"
 
 #include <QInputDialog>
+
+#include "AlbumModel.h"
 
 AlbumListWidget::AlbumListWidget(QWidget *parent) :
     QWidget(parent),
@@ -10,7 +11,9 @@ AlbumListWidget::AlbumListWidget(QWidget *parent) :
     mAlbumModel(nullptr)
 {
     ui->setupUi(this);
-    connect(ui->createAlbumButton, &QPushButton::clicked, this, &AlbumListWidget::createAlbum);
+
+    connect(ui->createAlbumButton, &QPushButton::clicked,
+            this, &AlbumListWidget::createAlbum);
 }
 
 AlbumListWidget::~AlbumListWidget()
@@ -18,49 +21,34 @@ AlbumListWidget::~AlbumListWidget()
     delete ui;
 }
 
-void AlbumListWidget::setModel(AlbumModel *model){
+void AlbumListWidget::setModel(AlbumModel* model)
+{
     mAlbumModel = model;
     ui->albumList->setModel(mAlbumModel);
 }
 
-void AlbumListWidget::setSelectionModel(QItemSelectionModel *selectionModel){
+void AlbumListWidget::setSelectionModel(QItemSelectionModel* selectionModel)
+{
     ui->albumList->setSelectionModel(selectionModel);
 }
 
-void AlbumListWidget::createAlbum(){
-    if(!mAlbumModel){
+void AlbumListWidget::createAlbum()
+{
+    if(!mAlbumModel) {
         return;
     }
+
     bool ok;
     QString albumName = QInputDialog::getText(this,
                                               "Create a new Album",
-                                              "Choose a name",
+                                              "Choose an name",
                                               QLineEdit::Normal,
-                                              "New Album",
+                                              "New album",
                                               &ok);
-    if(ok && !albumName.isEmpty()){
+
+    if (ok && !albumName.isEmpty()) {
         Album album(albumName);
         QModelIndex createdIndex = mAlbumModel->addAlbum(album);
         ui->albumList->setCurrentIndex(createdIndex);
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

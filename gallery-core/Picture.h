@@ -20,7 +20,6 @@ public:
 
     QUrl fileUrl() const;
     void setFileUrl(const QUrl& fileUrl);
-
 private:
     int mId;
     int mAlbumId;

@@ -2,7 +2,7 @@
 #define PICTUREWIDGET_H
 
 #include <QWidget>
-#include <QItemSelectionModel>
+#include <QItemSelection>
 
 namespace Ui {
 class PictureWidget;
@@ -18,28 +18,27 @@ class PictureWidget : public QWidget
 
 public:
     explicit PictureWidget(QWidget *parent = nullptr);
-    ~PictureWidget() override;
-
-    void setModel(ThumbnailProxyModel *model);
-    void setselectionModel(QItemSelectionModel *selectionModel);
+    ~PictureWidget();
+    void setModel(ThumbnailProxyModel* model);
+    void setSelectionModel(QItemSelectionModel* selectionModel);
 
 signals:
     void backToGallery();
 
 protected:
-    void resizeEvent(QResizeEvent *event) override;
+    void resizeEvent(QResizeEvent* event) override;
 
 private slots:
     void deletePicture();
-    void loadPicture(const QItemSelection &selected);
+    void loadPicture(const QItemSelection& selected);
 
 private:
     void updatePicturePixmap();
 
 private:
-    Ui::PictureWidget *ui;
-    ThumbnailProxyModel *mModel;
-    QItemSelectionModel *mSelectionModel;
+    Ui::PictureWidget* ui;
+    ThumbnailProxyModel* mModel;
+    QItemSelectionModel* mSelectionModel;
     QPixmap mPixmap;
 };
 

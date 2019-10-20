@@ -18,7 +18,7 @@ class GalleryWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit GalleryWidget(QWidget *parent = 0);
+    explicit GalleryWidget(QWidget *parent = nullptr);
     ~GalleryWidget();
 
     void setAlbumModel(AlbumModel* albumModel);
@@ -34,4 +34,4 @@ private:
     Ui::GalleryWidget *ui;
 };
 
-#endif
+#endif // GALLERYWIDGET_H
