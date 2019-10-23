@@ -10,6 +10,6 @@ All you need is a Qt Ceator IDE to build this project on your local machine.
 
 ## UI Preview
 
-![Gallery Widget](gallery_widget.png)
+![Gallery Widget](Resources/gallery_widget.png)
 
-![Picture Widget ](picture_widget.png)
+![Picture Widget ](Resources/picture_widget.png)
