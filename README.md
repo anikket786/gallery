@@ -1,5 +1,5 @@
 # gallery
-A gallery app created using Qt framework. It's a simple album and picture viewer gallery for desktop as well as Mobile devices. 
+A gallery app created using Qt framework. It's a simple album and picture viewer gallery for desktop systems. 
 
 ## Building the gallery application
 All you need is a Qt Ceator IDE to build this project on your local machine.
